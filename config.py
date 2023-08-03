@@ -14,5 +14,5 @@ pushplus_key = ''  # https://www.pushplus.plus/
 # ------------------------配置区域------------------------
 
 # m站新站辅助工具
-ver = '0.1'
+ver = '0.2'
 ck = list(filter(None, ck.split('\n')))
