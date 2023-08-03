@@ -3,13 +3,27 @@ from requests import Session
 from loguru import logger
 from config import *
 
-log = logger.bind(user="m站辅助工具")
+log = logger.bind(user="m站新站辅助工具")
 s: Session = requests.Session()
 
 
 def logapi(url, text):
     if 输出api返回信息:
         log.info(f"url:{url}\n返回信息:{text}")
+
+
+def Server酱推送(msg):
+    url = f"https://sctapi.ftqq.com/{Server酱_key}.send"
+    data = {"title": f"【m站新站辅助工具】", "desp": msg}
+    r = s.post(url, data=data)
+    logapi(url, r.json())
+
+
+def pushplus推送(msg):
+    url = "http://www.pushplus.plus/send"
+    data = {"token": pushplus_key, "title": f"【m站辅助工具】", "content": msg}
+    r = s.post(url, data=data)
+    logapi(url, r.json())
 
 
 def 登录(账号, 密码):
@@ -23,7 +37,7 @@ def 登录(账号, 密码):
     }
 
     r = s.post(url, headers=headers, data=data)
-    logapi(r.json())
+    logapi(url,r.json())
     access_token = r.json()['data']['access_token']
     return access_token
 
