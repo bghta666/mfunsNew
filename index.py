@@ -1,7 +1,6 @@
 from api import *
 
 
-
 def 执行用户任务(ckk, 任务序号):
     s.headers = {
         "authorization": ckk
@@ -44,22 +43,23 @@ def 执行用户任务(ckk, 任务序号):
 
 def 推送任务(info):
     try:
+        总msg = ''
         for msg in info:
-
-            with open(f'log.log', 'r', encoding='utf-8') as f:
-                内容 = f.read()
-                msg += f'''
-                详细调试信息:
-                {内容}'''
-            print(msg)
-            if Server酱_key != '':
-                Server酱推送(msg)
-                return True
-            if pushplus_key != '':
-                pushplus推送(msg)
-                return True
-            log.warning(f'未配置推送地址!')
-            return False
+            总msg += msg
+        with open(f'log.log', 'r', encoding='utf-8') as f:
+            内容 = f.read()
+            总msg += f'''
+            详细调试信息:
+            {内容}'''
+        print(总msg)
+        if Server酱_key != '':
+            Server酱推送(总msg)
+            return True
+        if pushplus_key != '':
+            pushplus推送(总msg)
+            return True
+        log.warning(f'未配置推送地址!')
+        return False
     except Exception as e:
         log.warning(e)
         return False
