@@ -1,12 +1,28 @@
 from api import *
 
+签到成功 = False
+
+
+def 执行签到任务():
+    global 签到成功
+    if 执行签到任务:
+        log.success("开始执行签到任务")
+        ret = 签到()
+        if '签到成功' in str(ret) or '已签到' in str(ret):
+            签到成功 = True
+        ret = ret['msg']
+        if 签到成功:
+            log.success(f"签到执行任务成功: {ret}")
+        else:
+            log.error(f"签到执行任务失败: {ret}")
+
 
 def 执行用户任务(ckk, 任务序号):
     s.headers = {
-        "authorization": ckk
+        "authorization": ckk,
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'
     }
-    签到成功 = False
-
+    执行签到任务()
     信息 = 获取用户信息()
     信息 = 信息['data']['user']
     用户名, 简介, uid, 等级, 喵币, 旧经验 = 信息['name'], 信息['bio'], 信息['id'], 信息['level_id'], 信息[
@@ -19,22 +35,12 @@ def 执行用户任务(ckk, 任务序号):
                 经验: {等级} ({旧经验})'''
 
     log.info('获取信息成功!' + msg)
-    if 执行签到任务:
-        log.success("开始执行签到任务")
-        ret = 签到()
-        if '签到成功' in str(ret) or '已签到' in str(ret):
-            签到成功 = True
-        ret = ret['msg']
-        if 签到成功:
-            log.success(f"签到执行任务成功: {ret}")
-        else:
-            log.error(f"签到执行任务失败: {ret}")
 
     信息 = 获取用户信息()
     信息 = 信息['data']['user']
     经验 = 信息['exp']
     经验差 = 经验 - 旧经验
-    msg = msg[:-1] + f'''+{经验差})
+    msg = msg[:-1] + f'''+{经验差}={经验})
                 今日任务执行完毕!
                 签到成功: {签到成功}
                 ----------------------------------------------'''
